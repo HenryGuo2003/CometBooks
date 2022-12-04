@@ -2,15 +2,15 @@ package CometBooks;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
 
 /**
  *
  * @author Miles
  */
-public class MainPageHandler implements HttpHandler {
+public class ListingPageHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange he) throws IOException {
         LoadPage(he);
@@ -19,21 +19,7 @@ public class MainPageHandler implements HttpHandler {
     public void LoadPage(HttpExchange he) {
         String req = he.getRequestURI().toString();
         String body = "";
-        if(req.contains("Browse")) {
-            Utilities.RedirectToPage(he, CometBooks.Listing_PAGE_NAME + "?netID=admin");
-            return;
-        }
-        else if (req.contains("Sell"))
-            body = "sell.mp4";
-        else if (req.contains("Cart"))
-            body = "cart.mp4";
-        else if (req.contains("Bookmarks"))
-            body = "bookmarks.mp4";
-        else if (req.contains("Messages"))
-            body = "messages.mp4";
-        else
-            body = "mainpage.mp4";
-        byte[] response = Utilities.ProcessHTMLTemplate("mainpage.html", "resources/" + body);
+        byte[] response = Utilities.ProcessHTMLTemplate("listingpage.html");
         try {
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();

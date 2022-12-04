@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CometBooks</title>
+    <script>
+        function myFunction() {
+            document.body.style.backgroundColor = "red";
+        }
+    </script>
+    <style>
+        html {
+            box-sizing: border-box;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.5em;
+        }
+        h1 {
+            font-size: 4em;
+            font-weight: normal;
+        }
+        h2 {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+        #book-list {
+            display: flex;
+            align-items: stretch;
+            flex-flow: column wrap;
+            justify-content: left;
+        }
+        section {
+            background: #F6F3ED;
+            margin: 10px;
+            padding: 20px;
+            border: 1px dotted maroon;
+            display: flex;
+            flex-direction: column;
+        }
+        .title {
+            background-color: #783F27;
+            color: #F9AB33;
+            line-height: 1em;
+        }
+        .price {
+            font-weight: bold;
+            background: #F9AB33;
+            padding: 5px;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<form>
+    <input type="image" name="Browse" src="resources/browseselected.png" alt="Browse">
+    <input type="image" name="Sell" src="resources/sellunselected.png" alt="Sell">
+    <input type="image" name="Bookmarks" src="resources/bookmarkunselected.png" alt="Bookmarks">
+    <input type="image" name="Cart" src="resources/cartunselected.png" alt="Cart">
+    <input type="image" name="Messages" src="resources/messagesunselected.png" alt="Messages">
+</form>
+<hr class="divider">
+<div id="book-list">
+    <div class="title">
+        <h1>BOOKS YOU MIGHT NEED</h1>
+    </div>
+
+    <section class="book">
+        <h2><br>Software Engineering for Absolute Beginners</h2>
+        <p class="info">Fall 2022 – SE6329</p>
+        <p class="info">Object Oriented Software Engineering</p>
+        <button>Details</button>
+    </section>
+
+    <section class="book">
+        <h2><br>Software Cost Estimation, Benchmarking, and
+            Risk Assessment: The Software Decision-Makers' Guide to
+            Predictable Software Development</h2>
+        <p class="info">Fall 2022 – SE6329</p>
+        <p class="info">Object Oriented Software Engineering</p>
+        <button>Details</button>
+    </section>
+
+    <section class="book">
+        <h2><br>The Essentials of Modern Software
+            Engineering: Free the Practices from the Method Prisons!</h2>
+        <p class="info">Fall 2022 – SE6329</p>
+        <p class="info">Object Oriented Software Engineering</p>
+        <button>Details</button>
+    </section>
+
+    <div class="title">
+        <h1>BOOKS YOU MIGHT WANT TO SELL</h1>
+    </div>
+
+    <section class="book">
+        <h2><br>Applying UML and Patterns</h2>
+        <p class="info">Fall 2022 – SE6329</p>
+        <p class="info">Object Oriented Software Engineering</p>
+        <button>Details</button>
+    </section>
+</div>
+</body>
+</html>

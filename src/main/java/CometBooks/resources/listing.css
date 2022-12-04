@@ -1,0 +1,7 @@
+hr.divider {
+    border-rop: 3px solid #bbb;
+}
+
+#container {
+    display: flex;
+}
