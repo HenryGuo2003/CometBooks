@@ -14,4 +14,5 @@ package CometBooks;
 public interface IDatabase {
     void Select();
     void Insert();
+    void Update();
 }

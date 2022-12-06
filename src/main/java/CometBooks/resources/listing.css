@@ -5,3 +5,58 @@ hr.divider {
 #container {
     display: flex;
 }
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: Georgia, serif;
+    line-height: 1.5em;
+    /*background-color: red;*/ /* @TODO: Confirm with @Yuchen if this is supposed to be here (was unexecuted js fn in html header previously) */
+}
+
+h1 {
+    font-size: 4em;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 1.2em;
+    margin-top: 0;
+}
+
+#book-list {
+    display: flex;
+    align-items: stretch;
+    flex-flow: column wrap;
+    justify-content: left;
+}
+
+section {
+    background: #F6F3ED;
+    margin: 10px;
+    padding: 20px;
+    border: 1px dotted maroon;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    background-color: #783F27;
+    color: #F9AB33;
+    line-height: 1em;
+}
+
+button {
+    font-weight: bold;
+    background: #F9AB33;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}

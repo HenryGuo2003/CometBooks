@@ -4,7 +4,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
 
 /**
  *
@@ -20,7 +19,7 @@ public class MainPageHandler implements HttpHandler {
         String req = he.getRequestURI().toString();
         String body = "";
         if(req.contains("Browse")) {
-            Utilities.RedirectToPage(he, CometBooks.Listing_PAGE_NAME + "?netID=admin");
+            Utilities.RedirectToPage(he, CometBooks.LISTING_PAGE_NAME + "?netID=admin");
             return;
         }
         else if (req.contains("Sell"))
@@ -32,7 +31,7 @@ public class MainPageHandler implements HttpHandler {
         else if (req.contains("Messages"))
             body = "messages.mp4";
         else
-            body = "mainpage.mp4";
+            body = "mainpage.mp4"; // @TODO: Should probably be an error, rather than this
         byte[] response = Utilities.ProcessHTMLTemplate("mainpage.html", "resources/" + body);
         try {
             he.sendResponseHeaders(200, response.length);

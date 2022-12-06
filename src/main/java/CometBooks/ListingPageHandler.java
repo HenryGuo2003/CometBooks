@@ -2,13 +2,12 @@ package CometBooks;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-
 import java.io.IOException;
 import java.io.OutputStream;
 
 /**
  *
- * @author Miles
+ * @author Yuchen
  */
 public class ListingPageHandler implements HttpHandler {
     @Override
@@ -19,7 +18,7 @@ public class ListingPageHandler implements HttpHandler {
     public void LoadPage(HttpExchange he) {
         String req = he.getRequestURI().toString();
         String body = "";
-        byte[] response = Utilities.ProcessHTMLTemplate("listingpage.html");
+        byte[] response = Utilities.ProcessHTMLTemplate("listingpage.html"); // @TODO: Extract the response try/catch logic into utilities...? It gets copy+pased around a lot
         try {
             he.sendResponseHeaders(200, response.length);
             OutputStream os = he.getResponseBody();

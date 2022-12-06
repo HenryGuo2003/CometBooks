@@ -16,11 +16,9 @@ import java.net.InetSocketAddress;
  */
 public class CometBooks {
     public static final String RESOURCE_FOLDER_NAME = "/resources",
-            LOCAL_SOURCES_DIR = System.getProperty("user.dir")
-                                + "/src/main/java/CometBooks"
-                                + RESOURCE_FOLDER_NAME,
+            LOCAL_SOURCES_DIR = "../src/main/java/CometBooks" + RESOURCE_FOLDER_NAME,
             MAIN_PAGE_NAME = "/main",
-            Listing_PAGE_NAME = "/listing";
+            LISTING_PAGE_NAME = "/listing";
     public static final LoginPageHandler LOGIN_PAGE = new LoginPageHandler();
     public static final ResourceRequestHandler RESOURCES = new ResourceRequestHandler();
     public static final MainPageHandler MAIN_PAGE = new MainPageHandler();
@@ -28,14 +26,13 @@ public class CometBooks {
     public static final ListingPageHandler LISTING_PAGE = new ListingPageHandler();
     
     public static void main(String[] args) {
-        System.out.println(LOCAL_SOURCES_DIR);
         try {
             HttpServer server;
-            server = HttpServer.create(new InetSocketAddress(InetAddress.getByName("127.0.0.1"),4000), 0);
+            server = HttpServer.create(new InetSocketAddress(81), 0);
             server.createContext("/", LOGIN_PAGE);
             server.createContext(RESOURCE_FOLDER_NAME, RESOURCES);
             server.createContext(MAIN_PAGE_NAME, MAIN_PAGE);
-            server.createContext(Listing_PAGE_NAME, LISTING_PAGE);
+            server.createContext(LISTING_PAGE_NAME, LISTING_PAGE);
             server.setExecutor(null);
             server.start();
         }
