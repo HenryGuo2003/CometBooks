@@ -9,6 +9,9 @@ package CometBooks;
  * pretending to be UTD Galaxy exists instead.
  */
 public interface IUTDGalaxy {
+    
+    boolean IsValid(long accessToken);
+    
     /**
      * Checks that the information entered matches a valid UTD student account
      * provided by UTD Galaxy. Note that it is never a good idea, nor is it
@@ -16,5 +19,5 @@ public interface IUTDGalaxy {
      * internet. The inputs are called "Token" because it is expected that
      * these should be encrypted values.
      */
-    boolean IsValid(String netIDToken, String passwordToken);
+    long Login(String netIDToken, String passwordToken);
 }

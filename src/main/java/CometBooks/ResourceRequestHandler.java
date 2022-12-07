@@ -10,6 +10,10 @@ import java.io.OutputStream;
  * @author Miles
  */
 public class ResourceRequestHandler implements HttpHandler {
+    public static final ResourceRequestHandler SINGLETON = new ResourceRequestHandler();
+    
+    private ResourceRequestHandler() {}
+    
     @Override
     public void handle(HttpExchange t) throws IOException {
         String target = t.getRequestURI().toString();

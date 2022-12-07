@@ -10,13 +10,16 @@ import java.io.OutputStream;
  * @author Miles
  */
 public class MainPageHandler implements HttpHandler {
+    public static final MainPageHandler SINGLETON = new MainPageHandler();
+    
+    private MainPageHandler() {}
+    
     @Override
     public void handle(HttpExchange he) throws IOException {
-        LoadPage(he);
-    }
-    
-    public void LoadPage(HttpExchange he) {
         String req = he.getRequestURI().toString();
+        HashMap<String, String> queryPairs = Utilities.ProcessRequestTokens(req);
+        if(!queryPairs.containsKey(CometBooks.ACCESS_TOKEN_NAME)) // You are not logged in to the mo fun zone, if you will
+            Utilities.RedirectToPage(he, "/");
         String body = "";
         if(req.contains("Browse")) {
             Utilities.RedirectToPage(he, CometBooks.LISTING_PAGE_NAME + "?netID=admin");

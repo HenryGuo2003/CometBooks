@@ -12,15 +12,19 @@ import java.util.HashMap;
  */
 public class LoginPageHandler implements HttpHandler {
     public static final String USERNAME_INPUT_FIELD_NAME = "netID", PASSWORD_INPUT_FIELD_NAME = "password";
+    public static final LoginPageHandler SINGLETON = new LoginPageHandler();
+    
+    private LoginPageHandler() {}
     
     @Override
     public void handle(HttpExchange he) throws IOException {
         String req = he.getRequestURI().toString();
-        if (req.contains("?")) { //Process an inbound login request form
-            HashMap<String, String> queryPairs = Utilities.ProcessRequestTokens(req);
+        HashMap<String, String> queryPairs = Utilities.ProcessRequestTokens(req);
+        if (!queryPairs.isEmpty()) { //Process an inbound login request form
             if (queryPairs.containsKey(USERNAME_INPUT_FIELD_NAME) && queryPairs.containsKey(PASSWORD_INPUT_FIELD_NAME)) {
-                if(CometBooks.UTD_GALAXY.IsValid(queryPairs.get(USERNAME_INPUT_FIELD_NAME), queryPairs.get(PASSWORD_INPUT_FIELD_NAME)))
-                    Utilities.RedirectToPage(he, CometBooks.MAIN_PAGE_NAME + "?netID=admin");
+                long accessToken = CometBooks.UTD_GALAXY.Login(queryPairs.get(USERNAME_INPUT_FIELD_NAME), queryPairs.get(PASSWORD_INPUT_FIELD_NAME));
+                if(accessToken != 0)
+                    Utilities.RedirectToPage(he, CometBooks.MAIN_PAGE_NAME + "?" + CometBooks.ACCESS_TOKEN_NAME + "=" + accessToken);
                 else
                     LoadPage(he, "Invalid login details");
             }
@@ -30,6 +34,7 @@ public class LoginPageHandler implements HttpHandler {
         else //Load the page fresh
             LoadPage(he, "");
     }
+    
     public void LoadPage(HttpExchange he, String errMsg) {
         byte[] response = Utilities.ProcessHTMLTemplate("login.html", USERNAME_INPUT_FIELD_NAME, PASSWORD_INPUT_FIELD_NAME, errMsg);
         try {
