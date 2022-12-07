@@ -3,28 +3,42 @@ package CometBooks;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.util.HashMap;
 
-/**
- *
- * @author Yuchen
- */
 public class ListingPageHandler implements HttpHandler {
+    public static final ListingPageHandler SINGLETON = new ListingPageHandler();
+    
+    private ListingPageHandler() {}
+    
     @Override
     public void handle(HttpExchange he) throws IOException {
-        LoadPage(he);
-    }
-    
-    public void LoadPage(HttpExchange he) {
+        //Process inputs. Requires the user be logged in via an access token
         String req = he.getRequestURI().toString();
-        String body = "";
-        byte[] response = Utilities.ProcessHTMLTemplate("listingpage.html"); // @TODO: Extract the response try/catch logic into utilities...? It gets copy+pased around a lot
-        try {
-            he.sendResponseHeaders(200, response.length);
-            OutputStream os = he.getResponseBody();
-            os.write(response);
-            os.close();
+        HashMap<String, String> queryPairs = Utilities.ProcessRequestTokens(req);
+        if(!queryPairs.containsKey(CometBooks.ACCESS_TOKEN_NAME)) { // You are not logged in to the mo fun zone, if you will
+            Utilities.RedirectToPage(he, "/");
+            return;
         }
-        catch (IOException ioe) {} // Ignored because the try block contents here will often noisily throw "waiting to send" style errors that aren't real problems
+        long accessToken;
+        try {
+            accessToken = Long.parseLong(queryPairs.get(CometBooks.ACCESS_TOKEN_NAME));
+        } catch(NumberFormatException nfe) {
+            Utilities.RedirectToPage(he, "/");
+            return;
+        }
+        
+        //Get user's schedule and display their books to buy/sell
+        Schedule s = CometBooks.UTD_GALAXY.getStudentSchedule(accessToken);
+        Course[] courses;
+        String body = "";
+        if(s == null) 
+            courses = new Course[]{};
+        else
+            courses = s.requestCourseList();
+        for(Course c : courses)
+            for(Book b : c.requestBookList())
+                body += Utilities.ProcessHTMLTemplateString("salelistingbooktemplate.html", b.imageName, b.name, b.author, c.semester, c.code, c.name);
+        
+        Utilities.SendHttpResponse(he, 200, Utilities.ProcessHTMLTemplate("listingpage.html", body));
     }
 }

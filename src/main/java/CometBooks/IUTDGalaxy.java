@@ -10,8 +10,7 @@ package CometBooks;
  */
 public interface IUTDGalaxy {
     
-    boolean IsValid(long accessToken);
-    
+    boolean isValid(long accessToken);
     /**
      * Checks that the information entered matches a valid UTD student account
      * provided by UTD Galaxy. Note that it is never a good idea, nor is it
@@ -19,5 +18,6 @@ public interface IUTDGalaxy {
      * internet. The inputs are called "Token" because it is expected that
      * these should be encrypted values.
      */
-    long Login(String netIDToken, String passwordToken);
+    long login(String netIDToken, String passwordToken);
+    Schedule getStudentSchedule(long accessToken);
 }

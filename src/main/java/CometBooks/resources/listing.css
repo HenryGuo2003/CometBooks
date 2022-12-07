@@ -1,6 +1,4 @@
-hr.divider {
-    border-rop: 3px solid #bbb;
-}
+@import "navigationpanel.css";
 
 #container {
     display: flex;
@@ -15,19 +13,21 @@ html {
 }
 
 body {
-    font-family: Georgia, serif;
-    line-height: 1.5em;
-    /*background-color: red;*/ /* @TODO: Confirm with @Yuchen if this is supposed to be here (was unexecuted js fn in html header previously) */
+    padding: 0;
+    margin: 0;
 }
 
 h1 {
     font-size: 4em;
     font-weight: normal;
+    padding-left: 20px;
+    vertical-align: middle;
 }
 
 h2 {
     font-size: 1.2em;
-    margin-top: 0;
+    padding-left: 20px;
+    vertical-align: middle;
 }
 
 #book-list {
@@ -47,8 +47,14 @@ section {
 }
 
 .title {
-    background-color: #783F27;
-    color: #F9AB33;
+    background-color: #8bbf6d;
+    color: white;
+    line-height: 1em;
+}
+
+.pageHeader {
+    background-color: #d65f30;
+    color: white;
     line-height: 1em;
 }
 

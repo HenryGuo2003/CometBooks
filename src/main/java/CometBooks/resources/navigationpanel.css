@@ -1,0 +1,11 @@
+.navpanel {
+    background-color: white;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+hr.divider {
+    border-top: 3px solid #bbb;
+    padding: 0;
+    margin: 0;
+}

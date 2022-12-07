@@ -19,7 +19,6 @@ public class CometBooks {
             LOCAL_SOURCES_DIR = "../src/main/java/CometBooks" + RESOURCE_FOLDER_NAME,
             MAIN_PAGE_NAME = "/main", ACCESS_TOKEN_NAME = "accessToken", LISTING_PAGE_NAME = "/listing";
     public static final IUTDGalaxy UTD_GALAXY = new DummyUTDGalaxy();
-    public static final ListingPageHandler LISTING_PAGE = new ListingPageHandler();
     
     public static void main(String[] args) {
         try {
@@ -28,7 +27,7 @@ public class CometBooks {
             server.createContext("/", LoginPageHandler.SINGLETON);
             server.createContext(RESOURCE_FOLDER_NAME, ResourceRequestHandler.SINGLETON);
             server.createContext(MAIN_PAGE_NAME, MainPageHandler.SINGLETON);
-            server.createContext(LISTING_PAGE_NAME, LISTING_PAGE);
+            server.createContext(LISTING_PAGE_NAME, ListingPageHandler.SINGLETON);
             server.setExecutor(null);
             server.start();
         }

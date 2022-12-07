@@ -2,6 +2,7 @@ package CometBooks;
 
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,17 +35,25 @@ public class Utilities {
         }
         return result;
     }
-    public static byte[] ProcessHTMLTemplate(String htmlFileName, String... params) {
+    public static byte[] ProcessHTMLTemplate(String htmlFileName, String... params) { return ProcessHTMLTemplateString(htmlFileName, params).getBytes(); }
+    public static String ProcessHTMLTemplateString(String htmlFileName, String... params) {
         String result = new String(LoadResource(htmlFileName), Charset.forName("UTF-8"));
         for(int i = 0; i < params.length; i++)
             result = result.replace("%" + (i + 1), params[i]);
-        return result.getBytes();
+        return result;
     }
     public static void RedirectToPage(HttpExchange he, String URI) {
         he.getResponseHeaders().set("Location", URI);
-        try {
-            he.sendResponseHeaders(302, -1);
-        }
+        try { he.sendResponseHeaders(302, -1); }
         catch(IOException ioe) {}
+    }
+    public static void SendHttpResponse(HttpExchange he, int responseCode, byte[] response) {
+        try {
+            he.sendResponseHeaders(responseCode, response.length);
+            OutputStream os = he.getResponseBody();
+            os.write(response);
+            os.close();
+        }
+        catch (IOException ioe) {} // Ignored because the try block contents here will often noisily throw "waiting to send" style errors that aren't real problems
     }
 }
