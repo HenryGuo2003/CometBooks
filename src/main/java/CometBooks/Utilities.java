@@ -25,6 +25,8 @@ public class Utilities {
     public static HashMap<String, String> ProcessRequestTokens(String request) {
         HashMap<String, String> result = new HashMap<>();
         String[] query = request.split("\\?");
+        if(query.length <= 1)
+            return result;
         String[] keyValuePairs = query[query.length - 1].split("&");
         for(String pair : keyValuePairs) {
             String[] tokens = pair.split("=");
