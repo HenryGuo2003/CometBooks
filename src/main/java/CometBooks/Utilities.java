@@ -35,6 +35,14 @@ public class Utilities {
         }
         return result;
     }
+    public static String ConvertRequestTokensToURI(HashMap<String, String> queryPairs) {
+        if(queryPairs.isEmpty())
+            return "";
+        String result = "?";
+        for(String key : queryPairs.keySet())
+            result += key + "=" + queryPairs.get(key) + "&";
+        return result.substring(0, result.length() - 1);
+    }
     public static byte[] ProcessHTMLTemplate(String htmlFileName, String... params) { return ProcessHTMLTemplateString(htmlFileName, params).getBytes(); }
     public static String ProcessHTMLTemplateString(String htmlFileName, String... params) {
         String result = new String(LoadResource(htmlFileName), Charset.forName("UTF-8"));

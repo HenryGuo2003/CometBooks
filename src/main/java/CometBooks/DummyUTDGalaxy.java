@@ -6,10 +6,13 @@ package CometBooks;
  */
 public class DummyUTDGalaxy implements IUTDGalaxy {
     private final Book[] dummyBooksDB = {
-        new Book("Applying UML and Patterns (3rd Edition)", "3rd", "0131489062", "Craig Larman", "applyingumlandpatterns3.png")
+        new Book("Applying UML and Patterns", "Third Edition", "0131489062", "Craig Larman", "applyingumlandpatterns3.png"),
+        new Book("The Unified Modeling Language User Guide", "Second Edition", "0321267974", "Booch, Rumbaugh and Jacobson", "unifiedmodelinglanguageuserguide2.png"),
+        new Book("UML in Practice: The Art of Modeling Software Systems Demonstrated through Worked Examples and Solutions", "First Edition", "9780470848319", "Pascal Roques", "umlinpractice.png"),
+        new Book("UML 2 and the Unified Process: Practical Object-Oriented Analysis and Design", "Second Edition", "0321321278", "Jim Arlow, Ila Neustadt", "uml2andtheunifiedprocess2.png")
     };
     private final Course[] dummyCoursesDB = {
-        new Course(new Book[]{ dummyBooksDB[0] }, "Fall 2017", "SE6538", "Object Oriented Software Engineering")
+        new Course(new Book[]{ dummyBooksDB[0], dummyBooksDB[1], dummyBooksDB[2], dummyBooksDB[3] }, "Fall 2022", "SE6329", "Object Oriented Software Engineering")
     };
     private final SDummyUTDGalaxyAccount[] dummyAccountsDB = {
         new SDummyUTDGalaxyAccount("admin", "pass", new Schedule(new Course[]{ dummyCoursesDB[0] }))
