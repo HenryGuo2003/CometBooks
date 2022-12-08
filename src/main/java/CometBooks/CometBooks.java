@@ -1,8 +1,6 @@
 package CometBooks;
 
 import com.sun.net.httpserver.HttpServer;
-
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 /**
@@ -17,7 +15,8 @@ import java.net.InetSocketAddress;
 public class CometBooks {
     public static final String RESOURCE_FOLDER_NAME = "/resources",
             LOCAL_SOURCES_DIR = "../src/main/java/CometBooks" + RESOURCE_FOLDER_NAME,
-            MAIN_PAGE_NAME = "/main", ACCESS_TOKEN_NAME = "accessToken", LISTING_PAGE_NAME = "/listing";
+            MAIN_PAGE_NAME = "/main", ACCESS_TOKEN_NAME = "accessToken", LISTING_PAGE_NAME = "/listing",
+            BOOK_DETAILS_PAGE_NAME = "/details";
     public static final IUTDGalaxy UTD_GALAXY = new DummyUTDGalaxy();
     
     public static void main(String[] args) {
@@ -28,6 +27,7 @@ public class CometBooks {
             server.createContext(RESOURCE_FOLDER_NAME, ResourceRequestHandler.SINGLETON);
             server.createContext(MAIN_PAGE_NAME, MainPageHandler.SINGLETON);
             server.createContext(LISTING_PAGE_NAME, ListingPageHandler.SINGLETON);
+            server.createContext(BOOK_DETAILS_PAGE_NAME, BookDetailsPageHandler.SINGLETON);
             server.setExecutor(null);
             server.start();
         }

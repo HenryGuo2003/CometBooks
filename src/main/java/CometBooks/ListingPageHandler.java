@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class ListingPageHandler implements HttpHandler {
     public static final ListingPageHandler SINGLETON = new ListingPageHandler();
+    public static String ISBN_QUERY_TOKEN = "ISBN";
     
     private ListingPageHandler() {}
     
@@ -14,7 +15,6 @@ public class ListingPageHandler implements HttpHandler {
     public void handle(HttpExchange he) throws IOException {
         //Process inputs. Requires the user be logged in via an access token
         String req = he.getRequestURI().toString();
-        System.out.println(req);
         HashMap<String, String> queryPairs = Utilities.ProcessRequestTokens(req);
         if(!queryPairs.containsKey(CometBooks.ACCESS_TOKEN_NAME)) { // You are not logged in to the mo fun zone, if you will
             Utilities.RedirectToPage(he, "/");
@@ -43,9 +43,9 @@ public class ListingPageHandler implements HttpHandler {
             for(Book b : c.requestBookList()) {
                 HashMap<String, String> returnQuery = new HashMap<String, String>();
                 returnQuery.put(CometBooks.ACCESS_TOKEN_NAME, accessTokenAsString);
-                returnQuery.put("selection", b.ISBN);
+                returnQuery.put(ISBN_QUERY_TOKEN, b.ISBN);
                 body += Utilities.ProcessHTMLTemplateString("salelistingbooktemplate.html", b.imageName, b.name, b.author, c.semester, c.code, c.name, 
-                        CometBooks.LISTING_PAGE_NAME + Utilities.ConvertRequestTokensToURI(returnQuery));
+                        CometBooks.BOOK_DETAILS_PAGE_NAME + Utilities.ConvertRequestTokensToURI(returnQuery));
             }
         }
         
