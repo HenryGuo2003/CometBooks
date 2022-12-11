@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 
 /**
  *
- * @author Miles
+ * @author Joel
  * 
  * The entry point for the CometBooks server application. Responsible for
  * creating and providing public access to all the singleton implementations
@@ -16,8 +16,9 @@ public class CometBooks {
     public static final String RESOURCE_FOLDER_NAME = "/resources",
             LOCAL_SOURCES_DIR = "../src/main/java/CometBooks" + RESOURCE_FOLDER_NAME,
             MAIN_PAGE_NAME = "/main", ACCESS_TOKEN_NAME = "accessToken", LISTING_PAGE_NAME = "/listing",
-            BOOK_DETAILS_PAGE_NAME = "/details";
+            BOOK_DETAILS_PAGE_NAME = "/details", BUY_PAGE_NAME = "/buy";
     public static final IUTDGalaxy UTD_GALAXY = new DummyUTDGalaxy();
+    public static final ISaleListingDB SALE_LISTING_DB = new DummyListingDB();
     
     public static void main(String[] args) {
         try {
@@ -28,6 +29,7 @@ public class CometBooks {
             server.createContext(MAIN_PAGE_NAME, MainPageHandler.SINGLETON);
             server.createContext(LISTING_PAGE_NAME, ListingPageHandler.SINGLETON);
             server.createContext(BOOK_DETAILS_PAGE_NAME, BookDetailsPageHandler.SINGLETON);
+            server.createContext(BUY_PAGE_NAME, BuyPageHandler.SINGLETON);
             server.setExecutor(null);
             server.start();
         }

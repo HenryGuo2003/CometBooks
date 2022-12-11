@@ -64,4 +64,15 @@ public class Utilities {
         }
         catch (IOException ioe) {} // Ignored because the try block contents here will often noisily throw "waiting to send" style errors that aren't real problems
     }
+    public static long ExtractAccessToken(HashMap<String, String> queryPairs) {
+        if(!queryPairs.containsKey(CometBooks.ACCESS_TOKEN_NAME)) // You are not logged in to the mo fun zone, if you will
+            return 0;
+        long accessToken;
+        try {
+            accessToken = Long.parseLong(queryPairs.get(CometBooks.ACCESS_TOKEN_NAME));
+        } catch(NumberFormatException nfe) {
+            return 0;
+        }
+        return accessToken;
+    }
 }

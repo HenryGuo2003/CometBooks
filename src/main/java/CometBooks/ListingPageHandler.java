@@ -16,14 +16,8 @@ public class ListingPageHandler implements HttpHandler {
         //Process inputs. Requires the user be logged in via an access token
         String req = he.getRequestURI().toString();
         HashMap<String, String> queryPairs = Utilities.ProcessRequestTokens(req);
-        if(!queryPairs.containsKey(CometBooks.ACCESS_TOKEN_NAME)) { // You are not logged in to the mo fun zone, if you will
-            Utilities.RedirectToPage(he, "/");
-            return;
-        }
-        long accessToken;
-        try {
-            accessToken = Long.parseLong(queryPairs.get(CometBooks.ACCESS_TOKEN_NAME));
-        } catch(NumberFormatException nfe) {
+        long accessToken = Utilities.ExtractAccessToken(queryPairs);
+        if(accessToken == 0) {
             Utilities.RedirectToPage(he, "/");
             return;
         }

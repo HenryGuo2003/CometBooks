@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class BookDetailsPageHandler implements HttpHandler {
+    public static String LISTING_ID_QUERY_TOKEN = "ListingID";
     public static final BookDetailsPageHandler SINGLETON = new BookDetailsPageHandler();
     
     private BookDetailsPageHandler() {}
@@ -15,14 +16,8 @@ public class BookDetailsPageHandler implements HttpHandler {
         //Process inputs. Requires the user be logged in via an access token
         String req = he.getRequestURI().toString();
         HashMap<String, String> queryPairs = Utilities.ProcessRequestTokens(req);
-        if(!queryPairs.containsKey(CometBooks.ACCESS_TOKEN_NAME)) { // You are not logged in to the mo fun zone, if you will
-            Utilities.RedirectToPage(he, "/");
-            return;
-        }
-        long accessToken;
-        try {
-            accessToken = Long.parseLong(queryPairs.get(CometBooks.ACCESS_TOKEN_NAME));
-        } catch(NumberFormatException nfe) {
+        long accessToken = Utilities.ExtractAccessToken(queryPairs);
+        if(accessToken == 0) {
             Utilities.RedirectToPage(he, "/");
             return;
         }
@@ -40,10 +35,26 @@ public class BookDetailsPageHandler implements HttpHandler {
             return;
         }
         
+        //Find all the listings associated with the book and generate display templates for them all
+        String body = "";
+        for(SaleListing sl : CometBooks.SALE_LISTING_DB.getListingsFor(ISBN)) {
+            HashMap<String, String> buyQuery = new HashMap();
+            buyQuery.put(CometBooks.ACCESS_TOKEN_NAME, accessTokenAsString);
+            buyQuery.put(LISTING_ID_QUERY_TOKEN, Long.toString(sl.getID()));
+            body += Utilities.ProcessHTMLTemplateString("detailedsalelistingtemplate.html", 
+                    Long.toString(sl.getID()), 
+                    Double.toString(sl.getPrice()), 
+                    CometBooks.UTD_GALAXY.getStudentName(sl.getSellerID()), 
+                    sl.getCondition().toString(),
+                    sl.isOnHold() ? "resources/onhold.PNG" : "resources/buy.PNG", 
+                    sl.isOnHold() ? "ON HOLD" : "BUY",
+                    sl.isOnHold() ? "" : CometBooks.BUY_PAGE_NAME + Utilities.ConvertRequestTokensToURI(buyQuery));
+        }
+        
         //Generate the page and send it off
         HashMap<String, String> backQuery = new HashMap<>();
         backQuery.put(CometBooks.ACCESS_TOKEN_NAME, accessTokenAsString);
         Utilities.SendHttpResponse(he, 200, Utilities.ProcessHTMLTemplate("bookdetails.html", targetBook.imageName, targetBook.name, 
-                "Edition: " + targetBook.edition, "Author: " + targetBook.author, "ISBN: " + targetBook.ISBN, CometBooks.LISTING_PAGE_NAME + Utilities.ConvertRequestTokensToURI(backQuery)));
+                "Edition: " + targetBook.edition, "Author: " + targetBook.author, "ISBN: " + targetBook.ISBN, CometBooks.LISTING_PAGE_NAME + Utilities.ConvertRequestTokensToURI(backQuery), body));
     }
 }

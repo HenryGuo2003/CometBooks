@@ -21,4 +21,5 @@ public interface IUTDGalaxy {
     long login(String netIDToken, String passwordToken);
     Schedule getStudentSchedule(long accessToken);
     Book getBookByISBN(String ISBN);
+    String getStudentName(long ID);
 }
