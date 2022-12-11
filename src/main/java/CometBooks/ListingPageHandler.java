@@ -41,7 +41,7 @@ public class ListingPageHandler implements HttpHandler {
         //Generate the row html layout template for each book in each course of the user's schedule and add it to the page body
         for(Course c : courses) {
             for(Book b : c.requestBookList()) {
-                HashMap<String, String> returnQuery = new HashMap<String, String>();
+                HashMap<String, String> returnQuery = new HashMap<>();
                 returnQuery.put(CometBooks.ACCESS_TOKEN_NAME, accessTokenAsString);
                 returnQuery.put(ISBN_QUERY_TOKEN, b.ISBN);
                 body += Utilities.ProcessHTMLTemplateString("salelistingbooktemplate.html", b.imageName, b.name, b.author, c.semester, c.code, c.name, 

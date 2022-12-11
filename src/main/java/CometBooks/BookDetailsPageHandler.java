@@ -29,9 +29,21 @@ public class BookDetailsPageHandler implements HttpHandler {
         String accessTokenAsString = Long.toString(accessToken);
         
         //Find the book via its ISBN and get its details
-        //@TODO
+        if(!queryPairs.containsKey(ListingPageHandler.ISBN_QUERY_TOKEN)) { // The query is invalid; we need a book ISBN to display
+            Utilities.RedirectToPage(he, "/"); // @TODO: This should probably... render an error, or something.
+            return;
+        }
+        String ISBN = queryPairs.get(ListingPageHandler.ISBN_QUERY_TOKEN);
+        Book targetBook = CometBooks.UTD_GALAXY.getBookByISBN(ISBN);
+        if(targetBook == null) {
+            Utilities.RedirectToPage(he, "/"); // @TODO: As above, so below.
+            return;
+        }
         
         //Generate the page and send it off
-        Utilities.SendHttpResponse(he, 200, Utilities.ProcessHTMLTemplate("bookdetails.html"));
+        HashMap<String, String> backQuery = new HashMap<>();
+        backQuery.put(CometBooks.ACCESS_TOKEN_NAME, accessTokenAsString);
+        Utilities.SendHttpResponse(he, 200, Utilities.ProcessHTMLTemplate("bookdetails.html", targetBook.imageName, targetBook.name, 
+                "Edition: " + targetBook.edition, "Author: " + targetBook.author, "ISBN: " + targetBook.ISBN, CometBooks.LISTING_PAGE_NAME + Utilities.ConvertRequestTokensToURI(backQuery)));
     }
 }

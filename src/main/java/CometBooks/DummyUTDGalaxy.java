@@ -38,6 +38,14 @@ public class DummyUTDGalaxy implements IUTDGalaxy {
             return dummyAccountsDB[(int)(accessToken - 1)].schedule;
         return null;
     }
+
+    @Override
+    public Book getBookByISBN(String ISBN) {
+        for(Book b : dummyBooksDB)
+            if(b.ISBN.equals(ISBN))
+                return b;
+        return null;
+    }
 }
 
 class SDummyUTDGalaxyAccount {

@@ -1,0 +1,57 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #e6e0e8;
+}
+
+.pageHeader {
+    background-color: #d65f30;
+    color: white;
+    line-height: 1em;
+    font-size: 4em;
+    font-weight: normal;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+.detailBox {
+    margin: 20px;
+    background-color: white;
+    box-shadow: 2px 2px 5px gray;
+    padding: 20px;
+}
+
+.bookDetails {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: grey;
+}
+
+h1 {
+    color: black;
+}
+
+h2 {
+    font-size: 1.2em;
+    padding-left: 20px;
+    vertical-align: middle;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: stretch;
+    flex-flow: column wrap;
+    justify-content: left;
+    background-color: #8bbf6d;
+    color: white;
+    line-height: 1em;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
