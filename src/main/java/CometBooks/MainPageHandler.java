@@ -5,10 +5,6 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.util.HashMap;
 
-/**
- *
- * @author Miles
- */
 public class MainPageHandler implements HttpHandler {
     public static final MainPageHandler SINGLETON = new MainPageHandler();
     
@@ -30,7 +26,9 @@ public class MainPageHandler implements HttpHandler {
             return;
         }
         if(queryPairs.containsKey("Cart.x")) {
-            Utilities.RedirectToPage(he, req); //@TODO: implement cart page
+            HashMap<String, String> transactionQuery = new HashMap<>();
+            transactionQuery.put(CometBooks.ACCESS_TOKEN_NAME, queryPairs.get(CometBooks.ACCESS_TOKEN_NAME));
+            Utilities.RedirectToPage(he, CometBooks.TRANSACTIONS_PAGE_NAME + Utilities.ConvertRequestTokensToURI(transactionQuery));
             return;
         }
         

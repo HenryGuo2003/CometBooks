@@ -39,5 +39,15 @@ public class DummyListingDB implements ISaleListingDB {
                 return sl;
         return null;
     }
+
+    @Override
+    public SaleListing[] getBuyerListings(long buyerID) {
+        ArrayList<SaleListing> result = new ArrayList<>();
+        for(SaleListing sl : DUMMY_LISTING_DB)
+            if(sl.getBuyerID() == buyerID)
+                result.add(sl);
+        SaleListing[] resultAsArray = new SaleListing[result.size()];
+        return result.toArray(resultAsArray);
+    }
     
 }

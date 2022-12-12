@@ -23,6 +23,14 @@ public class ListingPageHandler implements HttpHandler {
         }
         String accessTokenAsString = Long.toString(accessToken);
         
+        //Don't need to bother with any proper processing if we're just doing a nav panel redirect
+        if(queryPairs.containsKey("Cart.x")) {
+            HashMap<String, String> transactionQuery = new HashMap<>();
+            transactionQuery.put(CometBooks.ACCESS_TOKEN_NAME, accessTokenAsString);
+            Utilities.RedirectToPage(he, CometBooks.TRANSACTIONS_PAGE_NAME + Utilities.ConvertRequestTokensToURI(transactionQuery));
+            return;
+        }
+        
         //Get user's schedule
         Schedule s = CometBooks.UTD_GALAXY.getStudentSchedule(accessToken);
         Course[] courses;

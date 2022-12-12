@@ -4,6 +4,16 @@
     margin-left: 5px;
 }
 
+.navpanelitem {
+    width: 30px;
+    height: 30px;
+}
+
+.navpanel img {
+    width: 30px;
+    height: 30px;
+}
+
 hr.divider {
     border-top: 3px solid #bbb;
     padding: 0;
