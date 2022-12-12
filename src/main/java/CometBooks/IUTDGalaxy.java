@@ -22,4 +22,5 @@ public interface IUTDGalaxy {
     Schedule getStudentSchedule(long accessToken);
     Book getBookByISBN(String ISBN);
     String getStudentName(long ID);
+    String getStudentNumber(long ID);
 }

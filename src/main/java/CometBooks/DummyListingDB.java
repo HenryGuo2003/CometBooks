@@ -31,5 +31,13 @@ public class DummyListingDB implements ISaleListingDB {
         }
         return false;
     }
+
+    @Override
+    public SaleListing getListingByID(long id) {
+        for(SaleListing sl : DUMMY_LISTING_DB)
+            if(sl.getID() == id)
+                return sl;
+        return null;
+    }
     
 }

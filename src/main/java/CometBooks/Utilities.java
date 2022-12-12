@@ -46,7 +46,7 @@ public class Utilities {
     public static byte[] ProcessHTMLTemplate(String htmlFileName, String... params) { return ProcessHTMLTemplateString(htmlFileName, params).getBytes(); }
     public static String ProcessHTMLTemplateString(String htmlFileName, String... params) {
         String result = new String(LoadResource(htmlFileName), Charset.forName("UTF-8"));
-        for(int i = 0; i < params.length; i++)
+        for(int i = params.length - 1; i >= 0; i--)
             result = result.replace("%" + (i + 1), params[i]);
         return result;
     }

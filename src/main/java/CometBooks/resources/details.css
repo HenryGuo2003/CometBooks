@@ -1,5 +1,6 @@
 body {
     padding: 0;
+    padding-bottom: 20px;
     margin: 0;
     background-color: #e6e0e8;
 }
@@ -41,6 +42,12 @@ h2 {
     vertical-align: middle;
 }
 
+h3 {
+    color: gray;
+    padding: 0;
+    margin: 0
+}
+
 .sectionHeader {
     display: flex;
     align-items: stretch;
@@ -54,4 +61,39 @@ h2 {
 p {
     padding: 0;
     margin: 0;
+}
+
+.textCategory {
+    margin-top: 20px
+}
+
+button {
+    border: none;
+    color: white;
+    text-decoration: none; 
+    padding: 10px;
+    width: 99%;
+    margin: 0 auto;
+    display: block;
+}
+
+a { text-decoration: none }
+
+.sellerBox {
+    background-color: #d2ce9a;
+    text-align: center;
+    vertical-align: middle;
+    padding: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.centeredBox {
+    height: 50%;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
 }

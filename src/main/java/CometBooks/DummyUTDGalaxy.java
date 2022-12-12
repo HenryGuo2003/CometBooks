@@ -15,8 +15,8 @@ public class DummyUTDGalaxy implements IUTDGalaxy {
         new Course(new Book[]{ dummyBooksDB[0], dummyBooksDB[1], dummyBooksDB[2], dummyBooksDB[3] }, "Fall 2022", "SE6329", "Object Oriented Software Engineering")
     };
     private final SDummyUTDGalaxyAccount[] dummyAccountsDB = {
-        new SDummyUTDGalaxyAccount(1, "admin", "pass", "Jonathan R.", new Schedule(new Course[]{ dummyCoursesDB[0] })),
-        new SDummyUTDGalaxyAccount(2, "willr", "word", "Will R.", new Schedule(new Course[]{ dummyCoursesDB[0] }))
+        new SDummyUTDGalaxyAccount(1, "admin", "pass", "Jonathan R.", "972-888-8888", new Schedule(new Course[]{ dummyCoursesDB[0] })),
+        new SDummyUTDGalaxyAccount(2, "willr", "word", "Will R.", "972-867-5309", new Schedule(new Course[]{ dummyCoursesDB[0] }))
     };
     
     @Override
@@ -52,20 +52,29 @@ public class DummyUTDGalaxy implements IUTDGalaxy {
     public String getStudentName(long ID) {
         for(SDummyUTDGalaxyAccount a : dummyAccountsDB)
             if(a.ID == ID)
-                return a.displayName;
+                return a.displayName == null ? "" : a.displayName;
+        return "";
+    }
+    
+    @Override
+    public String getStudentNumber(long ID) {
+        for(SDummyUTDGalaxyAccount a : dummyAccountsDB)
+            if(a.ID == ID)
+                return a.phoneNumber == null ? "" : a.phoneNumber;
         return "";
     }
 }
 
 class SDummyUTDGalaxyAccount {
-    public String username, password, displayName;
+    public String username, password, displayName, phoneNumber;
     public Schedule schedule;
     public long ID;
-    public SDummyUTDGalaxyAccount(long ID, String username, String password, String displayName, Schedule schedule) {
+    public SDummyUTDGalaxyAccount(long ID, String username, String password, String displayName, String phoneNumber, Schedule schedule) {
         this.ID = ID;
         this.username = username;
         this.password = password;
         this.schedule = schedule;
         this.displayName = displayName;
+        this.phoneNumber = phoneNumber;
     }
 }
